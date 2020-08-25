@@ -1,0 +1,5 @@
+"0","load(""../datasets/rosmap/beta_rosmap_ewasfilt_bmiq.RData"")
+"
+"2","cannot open compressed file '../datasets/rosmap/beta_rosmap_ewasfilt_bmiq.RData', probable reason 'No such file or directory'"
+"2","Error in readChar(con, 5L, useBytes = TRUE) : cannot open the connection
+"
