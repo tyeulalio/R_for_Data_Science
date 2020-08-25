@@ -18,12 +18,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 <a id="top"></a>
-# R for Data Science 
 
 
 This work comes from following along with the **R for Data Science** book. The book is freely available online at https://r4ds.had.co.nz/ 
 
-## Chapter 1: Introduction
+# Chapter 1: Introduction
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -37,14 +36,15 @@ library(tidyverse)
 library(nycflights13)
 ```
 
-## Chapter 2: Introduction
+# Chapter 2: Introduction
 [Back to Top](#top)
 
 *We'll skill Chapter 2 since there's not much to write up there*
 
-## Chapter 3: Data Visualization
+# Chapter 3: Data Visualization
 [Back to Top](#top)
 
+## 3.2 First Steps
 Use the `mpg` data frame and visualization techniques to answer this question: Do cars with big engines use more fuel than cars with small engines?
 
 ### 3.2.1 The `mpg` data frame
@@ -90,7 +90,7 @@ ggplot(data = mpg) +
 
 Looks pretty much the same as highway mileage.
 
-#### Notes on `ggplot`
+### Notes on `ggplot`
 The call to `ggplot()` create a coordinate system which we'll add layers to. We connect a dataset to the plot using the `data` argument. This creates an empty plot.
 
 
@@ -137,7 +137,7 @@ ggplot(data = mpg) +
 
 This is not useful because both of these variables are categorical. We're not gaining much information by displaying the data as a scatter plot.
 
-### 3.3 Aesthetic mappings
+## 3.3 Aesthetic mappings
 <a id="top"></a>
 
 Mapping aestetics in your plot to variables in the data can help to illuminate interesting patterns. Let's map the `class` cariable to a plot of `displ` and `hwy` to see how those distribute.
@@ -173,7 +173,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = 'blue')
 ```
 
-#### 3.3.1 Exercises
+### 3.3.1 Exercises
 <a id="top"></a>
 
 1) What’s gone wrong with this code? Why are the points not blue?
@@ -275,7 +275,7 @@ ggplot(data = mpg) +
 We can set functions to set the aesthetics according to the data.
 
 
-### 3.5 Facets
+## 3.5 Facets
 <a id="top"></a>
 
 **Facets** allow us to split plots into multiple *subplots*. We can facet the plot by a single variable using `facet_wrap()`. The first argument of `facep_wrap()` is a formula which specifies the variable to so split the plot on.
@@ -301,7 +301,7 @@ ggplot(data = mpg) +
 ```
 
 
-#### 3.5.1 Exercises
+### 3.5.1 Exercises
 <a id="top"></a>
 
 1) What happens when you facet on a continuous variable?
@@ -399,7 +399,7 @@ ggplot(data = mpg) +
 
 The graphs are clearer and easier to read when we put the variable with more levels into the columns.
 
-### 3.6 Geometric Objects
+## 3.6 Geometric Objects
 <a id="top"></a>
 
 Plots can represent the same data with different visual objects. These are referred to as **geoms**. Take the following two graphs for example.
@@ -478,7 +478,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
               se = FALSE)
 ```
 
-#### 3.6.1 Exercises
+### 3.6.1 Exercises
 <a id="top"></a>
 
 1) What geom would you use to draw a
@@ -571,7 +571,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 
 
-### 3.7 Statistical transformations
+## 3.7 Statistical transformations
 <a id="top"></a>
 
 Bar charts are a useful way to look at data. Here's a bar chart using the `diamonds` dataset, groupbed by `cuts`. This dataset contiains information about ~54,000 diamonds, including price, carat, color, clarity and cut of each diamond. We can see from the plot that more diamonds are available with high quality cuts than with low quality cuts.
@@ -632,7 +632,7 @@ ggplot(data=diamonds) +
   )
 ```
 
-#### 3.7.1 Exercises
+### 3.7.1 Exercises
 <a id="top"></a>
 
 1) What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
@@ -718,7 +718,7 @@ ggplot(data = diamonds) +
 Without the group argument, the geom will group the data according to the x-axis variable `cut`. Since we are interested in proportions, we need to consider al of the variables together, so we need to have them as a single group. Notice how the color argument no longer distinguished between the different cuts when we add the `group` argument.
 
 
-### 3.8 Position adjustments
+## 3.8 Position adjustments
 <a id="top"></a>
 
 We can adjust colors in bar charts using eithe the `color` or `fill` aesthetics.
@@ -780,7 +780,7 @@ ggplot(data=mpg) +
 
 This can really help display the data on a plot. Another way to jitter points on a scatter plot is to use the `geom_jitter()` geom.
 
-#### 3.8.1 Exercises
+### 3.8.1 Exercises
 <a id="top"></a>
 
 1. What is the problem with this plot? How could you improve it?
@@ -845,7 +845,7 @@ ggplot(data=mpg) +
 ```
 
 
-### 3.9 Coordinate Systems
+## 3.9 Coordinate Systems
 <a id="top"></a>
 
 The default coordinate system is the Cartesian coordinate system where the $x$ and $y$ coordinates act independently to determine the location of each point. There are other coordinate systems that we can use.
@@ -889,7 +889,7 @@ bar + coord_polar()
 ```
 
 
-#### 3.9.1 Exercises 
+### 3.9.1 Exercises 
 <a id="top"></a>
 
 1. Turn a stacked bar chart into a pie chard using `coord_polar()`
@@ -940,7 +940,7 @@ This plot tells us that there is positive relationship between city miles and hi
 The `abline` plots the diagonal line. We're looking at the line where city miles is equal to highway miles.
 
 
-### 3.10 The layered grammar of graphics
+## 3.10 The layered grammar of graphics
 <a id="top"></a>
 
 Now we can develop a code template that uses all of the techniques we've learned to generat a plot with `ggplot`.
@@ -957,4 +957,14 @@ ggplot(data = <DATA>) +
 ```
 
 The seven parameters for this template compose the grammar of graphics, a formal system for building plots. This grammar is based on the insight that you can uniquely describe any plot as a combination of a dataset, a geom, a set of mappings, a stat, a position adjustment, a coordinat system, and a faceting scheme.
+
+# Chapter 4 Workflow: basics
+<a id="top"></a>
+
+This chapter is pretty basic stuff so I'm going to skip it. See the R For Data Science book for the details: https://r4ds.had.co.nz/workflow-basics.html.
+
+These are the topics covered in this chapter:
+- 4.1 coding basics
+- 4.2 variable naming conventions
+- 4.3 functions
 
