@@ -2592,6 +2592,298 @@ ggplot(data = diamonds) +
   coord_cartesian(xlim = c(4, 11), ylim = c(4, 11))
 ```
 
+## 7.6 - 7.8
+<a id="top"></a>
+
+Not a lot of coding here so skipping these sections.
+
+# Chapter 8: Workflow Projects
+<a id="top"></a>
+
+Just some reading so skipping this chapter.
+
+# Chapter 9: Introduction
+<a id="top"></a>
+
+Introduction to the new Wrangle section of the book.
+
+# Chapter 10: Tibbles
+<a id="top"></a>
+
+## 10.1 Introduction
+
+We'll be learning about tibbles here. Tibbles are a fancier and more updated version of data.frames. We need to have the library `tidyverse` loaded for this section.
+
+## 10.2 Creating tibbles
+<a id="top"></a>
+
+You can coerce a data frame into a tibble using `as_tibble()`.
+
+```{r}
+as_tibble(iris)
+```
+
+Create new tibble from individual vectors using `tibble()`.
+```{r}
+tibble(
+  x=1:5,
+  y=1,
+  z=x^2 + y
+)
+```
+
+If you're already familiary with `data.frame()`, note that `tibble()` does much less:
+
+- it never changes the type of inputs (never converts strings to factors!)
+- never changes the names of variables
+- never create row names
+
+It is possible for a tibble to have column names that are not valid R variable names. For example, they might not start with a letter, or they might contain unusual characters like a space. To refer to these variables, you need to surround them with backticks, `\``:
+```{r}
+tb <- tibble(
+  `:)` = 'smile',
+  ` ` = 'space',
+  `2000` = 'number'
+)
+tb
+```
+
+You'll also need the backticks when working with these variables in other packages like ggplot2, dplyr, and tidyr.
+
+Another way to create a tibble is with `tribble()`, short for transposed tibble. `tribble()` is customised for data entry in code: column headings are defined by formulas (ie they start with `~`), and entries are separated by commas. This makes it possible to lay out small amounts of data in easy to read form.
+```{r}
+tribble(
+  ~x, ~y, ~z,
+  #--|--|----
+  "a", 2, 3.6,
+  "b", 1, 8.5
+)
+```
+
+## 10.3 Tibbles vs. data.frame
+<a id="top"></a>
+
+There are two main differences in the usage of a tibble vs. a classic `data.frame`: printing and subsetting.
+
+### 10.3.1 Printing
+
+Tibbles have a refined print method that shows only the first 10 rows, and all the columns that fit on the screen. This makes it much easier to work with large data. In ddition to its name, each column reports its type, a nice feature borrowed from `str()`:
+```{r}
+tibble(
+  a = lubridate::now() + runif(1e3) * 86400,
+  b = lubridate::today() + runif(1e3) * 30,
+  c = 1:1e3,
+  d = runif(1e3),
+  e = sample(letters, 1e3, replace = TRUE)
+)
+```
+
+Tibbles are designed so that you don't accidentally overwhelm your console when you print large data frames. But sometimes you need more output than the default display. There are a few options that can help.
+
+First you can explicitly `print()` the data frame and control the number of rows (n) and the width of the display. `width = Inf` will display all columns:
+```{r}
+nycflights13::flights %>%
+  print(n=10, width=Inf)
+```
+
+You can also control the default print behavior by setting options:
+
+- `options(tibble.print_max = n, tibble.print_min = m)`: if more than n rows, print only m rows. Use `options(tibble.print_min = Inf`) to alays show all rows.
+- Use `options(tibble.width = Inf)` to always print all columns, regardless of the width of the screen.
+
+You can see a complete list of option by looking at the package help with `package? tibble`.
+
+
+### 10.3.2 Subsetting
+
+So far all the tools you've learned have worked with complete data frames. If you want to pull out a single variable, you need some new tools, `$` and `[[`. `[[` can extract by name or position, `$` only extracts by name but is a little less typing.
+
+```{r}
+df <- tibble(
+  x=runif(5),
+  y = rnorm(5)
+)
+
+# extract by name
+df$x
+df[['x']]
+
+# extract by position
+df[[1]]
+```
+
+
+To use these in a pipe, you'll need to use the special placeholder `.`:
+```{r}
+df %>% .$x
+
+df %>% .[['x']]
+```
+
+Compared to a `data.frame`, tibbles are more strict: they never do partial matching, and they will generate a warning if the column you are trying to access does not exist.
+
+
+## 10.4 Interacting with older code
+<a id="top"></a>
+
+Some older functions don't work with tibbles. If you encounter one of these functions, use `as.data.frame()` to turn a tibble back to a `data.frame`:
+```{r}
+class(as.data.frame(tb))
+```
+
+The main reson that some older functions don't work with tibble is the `[` function. We don't use the `[` much in this book because `dplyr::filter()` and `dplyr::select()` allow you to solve the same problems with clearer code. With base R data frames, `[` sometimes returns a data frame, and sometimes returns a vector. With tibbles, `[` always returns another tibble.
+
+## 10.5 Exercises
+<a id="top"></a>
+
+1. How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+
+Dataframes do not automatically print nicely, whereas tibbles do.
+
+2. Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?
+```{r}
+df <- data.frame(abc=1, xyz='a')
+t <- as.tibble(df)
+
+# 1
+df$x
+t$x
+
+# 2
+df[,'xyz']
+t[,'xyz']
+
+# 3
+df[,c('abc', 'xyz')]
+t[,c('abc', 'xyz')]
+```
+
+The first one prints the column 'xyz' when we only call for 'x'. This is a partial match that occurs when we're using the data frame. On the other hand, using the tibble, we get an error that informs us of an uninitialized column. The tibble behavior is more desirable because we might believe we added column 'x' when we actually didn't and we want to be informed of this. Partial matching of the column names without warning is highly undesirable.
+
+Number 2 on the data frame returns a vector of the column that we specified. This could throw off your code if you are expecting a data frame to be returned.
+
+Number 3 returns a data frame from the data frame. The different return types from 2 and 3 can be problematic, especially if this code is repeated in a function with different input data frames. One way you could prevent getting a vector back from #2 is to use `drop=FALSE` inside of the square bracket.
+```{r}
+str(df[,c('abc')])
+str(df[,c('abc'), drop=FALSE])
+```
+
+
+3. If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variables from a tibble?
+```{r}
+var <- "mpg"
+
+mtcars_tibble <- as.tibble(mtcars)
+
+# use var in square brackets
+mtcars_tibble[[var]]
+
+# this does not work:
+# mtcars_tibble$var
+```
+
+4. Practice referring to non-syntactic names in the following data frame by:
+```{r}
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+
+# 1. extracting the variable called 1
+annoying[[1]]
+annoying$`1`
+
+# 2. plotting a scatterplot of 1 vs 2
+ggplot(annoying) +
+  geom_point(aes(x=`1`, y=`2`))
+
+# 3. Creating a new column called 3 which is 2 divided by 1
+annoying <- annoying %>%
+  mutate(`3` = `2` / `1`)
+annoying
+
+# 4. Renaming the columns to one, two, three
+annoying <- annoying %>%
+  rename(one=`1`,
+         two=`2`,
+         three=`3`)
+annoying
+```
+
+
+5. What does `tibble::enframe()` do? When might you use it?
+
+enframe converts named atomic vectors or lists to one- or two-column data frames.
+```{r}
+enframe(1:3)
+
+enframe(list(one=1, two=2:3, three=4:6))
+```
+
+6. What option controls how many additional column names are printed at the footer of a tibble?
+
+
+# Chapter 11: Data Import
+<a id="top"></a>
+
+## 11.2 Getting Started
+
+Here we'll learn how to load flat files in R with the `readr` package, which is part of the core tidyverse.
+
+Most of readr's functions are concered with turning flat files into data frames:
+
+- `read_csv()` reads comma delimited files
+- `read_csv2()` reads semicolon separated files
+- `read_tsv()` reads tab delimited files
+- `read_delim()` reads in files with any delimiter
+- `read_fwf()` reads fixed width files. You can specify fields either by their widths with `fwf_widths()` or their position with `fwf_positions()`. `read_table()` reads a common variation of fixed width files where columns are separated by white space.
+- `read_log()` reads Apache style log files.
+
+
+The first argument to `read_csv()` is the path to the file to read.
+```{r}
+# heights <- read_csv("data/heights.csv")
+```
+
+You can also supply an inline csv file. This is useful for experimenting with readr and for creating reproducible examples to share with others:
+```{r}
+read_csv("a,b,c
+         1,2,3,
+         4,5,6")
+```
+
+In both cases, `read_csv()` uses the first line of the data for column names, which is a very common convention. There are two cases where you might want to tweak this behavior:
+
+1. Sometimes there are a few lines of metadata at the top of the file. You can use `skip = n` to skip the first `n` lines; or use `comment = "#"` to drop all lines that start with (e.g.) `#`.
+```{r}
+read_csv("The first line of metadata
+         The second line of metadata
+         x,y,z
+         1,2,3",
+         skip=2)
+
+read_csv("# a comment to skip,
+         x,y,z
+         1,2,3",
+         comment = '#')
+```
+
+2. The data might not have column names. You can use `col_names = FALSE` to tell `read_csv()` not to treat the first row as headings, and instead label them sequentially from `X1` to `Xn`:
+```{r}
+read_csv("1,2,3\n4,5,6", col_names=FALSE)
+```
+
+Alternatively, you can pass `col_names` a character vector which will be used as the column names:
+```{r}
+read_csv("1,2,3\n4,5,6", col_names=c('x', 'y', 'z'))
+```
+
+Another option that commonly needs tweaking is `na`: this specifies the value (or values) that are used to represent missing values in your file:
+```{r}
+read_csv("a,b,c\n1,2,.", na='.')
+```
+
+This is all you need to know to read ~75% of CSV files that you'll encounter in practice. You can easily adapt what you've learned to read tab separated files with `read_tsv()` and fixed width files with `read_fwf()`.  
 
 
 
