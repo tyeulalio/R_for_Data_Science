@@ -24,15 +24,15 @@
 <meta name="author" content="Tiffany Eulalio" />
 
 
-<meta name="date" content="2021-08-10" />
+<meta name="date" content="2021-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="chapter-9-introduction.html"/>
-
+<link rel="prev" href="introduction-1.html"/>
+<link rel="next" href="data-import.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -226,9 +226,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#skip-section-3"><i class="fa fa-check"></i><b>7.7</b> Skip section</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>8</b> Workflow Projects</a></li>
-<li class="chapter" data-level="9" data-path="chapter-9-introduction.html"><a href="chapter-9-introduction.html"><i class="fa fa-check"></i><b>9</b> Chapter 9: Introduction</a></li>
+<li class="chapter" data-level="9" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>9</b> Introduction</a></li>
 <li class="chapter" data-level="10" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>10</b> Tibbles</a><ul>
-<li class="chapter" data-level="10.1" data-path="tibbles.html"><a href="tibbles.html#introduction-1"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="tibbles.html"><a href="tibbles.html#introduction-2"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
 <li class="chapter" data-level="10.2" data-path="tibbles.html"><a href="tibbles.html#creating-tibbles"><i class="fa fa-check"></i><b>10.2</b> Creating tibbles</a></li>
 <li class="chapter" data-level="10.3" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.-data.frame"><i class="fa fa-check"></i><b>10.3</b> Tibbles vs. data.frame</a><ul>
 <li class="chapter" data-level="10.3.1" data-path="tibbles.html"><a href="tibbles.html#printing"><i class="fa fa-check"></i><b>10.3.1</b> Printing</a></li>
@@ -236,6 +236,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="tibbles.html"><a href="tibbles.html#interacting-with-older-code"><i class="fa fa-check"></i><b>10.4</b> Interacting with older code</a></li>
 <li class="chapter" data-level="10.5" data-path="tibbles.html"><a href="tibbles.html#exercises-17"><i class="fa fa-check"></i><b>10.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>11</b> Data Import</a><ul>
+<li class="chapter" data-level="11.1" data-path="data-import.html"><a href="data-import.html#skip-section-4"><i class="fa fa-check"></i><b>11.1</b> Skip section</a></li>
+<li class="chapter" data-level="11.2" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>11.2</b> Getting Started</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -259,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tibbles" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> Tibbles</h1>
-<div id="introduction-1" class="section level2">
+<div id="introduction-2" class="section level2">
 <h2><span class="header-section-number">10.1</span> Introduction</h2>
 <p>We’ll be learning about tibbles here. Tibbles are a fancier and more updated version of data.frames. We need to have the library <code>tidyverse</code> loaded for this section.</p>
 </div>
@@ -340,18 +344,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-6"><a href="tibbles.html#cb10-6"></a>  <span class="dt">e =</span> <span class="kw">sample</span>(letters, <span class="fl">1e3</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb10-7"><a href="tibbles.html#cb10-7"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 1,000 x 5
-##    a                   b              c        d e    
-##    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;
-##  1 2021-08-10 19:30:33 2021-08-30     1 0.570    j    
-##  2 2021-08-11 02:05:57 2021-08-29     2 0.774    l    
-##  3 2021-08-11 13:11:17 2021-08-17     3 0.436    i    
-##  4 2021-08-11 05:05:50 2021-08-23     4 0.650    a    
-##  5 2021-08-10 21:49:28 2021-09-04     5 0.629    i    
-##  6 2021-08-11 04:08:35 2021-08-16     6 0.000194 q    
-##  7 2021-08-10 20:50:47 2021-08-19     7 0.418    w    
-##  8 2021-08-11 04:20:04 2021-09-05     8 0.121    v    
-##  9 2021-08-11 13:11:40 2021-08-23     9 0.758    r    
-## 10 2021-08-10 22:10:11 2021-08-14    10 0.301    b    
+##    a                   b              c      d e    
+##    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
+##  1 2021-08-12 02:57:13 2021-08-15     1 0.0852 f    
+##  2 2021-08-11 18:59:09 2021-09-04     2 0.731  o    
+##  3 2021-08-11 21:50:47 2021-08-18     3 0.267  i    
+##  4 2021-08-12 13:10:53 2021-09-05     4 0.550  s    
+##  5 2021-08-11 21:09:59 2021-08-12     5 0.655  u    
+##  6 2021-08-11 18:48:59 2021-08-21     6 0.695  s    
+##  7 2021-08-12 13:57:25 2021-08-13     7 0.730  y    
+##  8 2021-08-12 07:00:17 2021-08-27     8 0.763  q    
+##  9 2021-08-12 12:28:04 2021-09-02     9 0.839  d    
+## 10 2021-08-12 01:50:24 2021-09-06    10 0.976  o    
 ## # ... with 990 more rows</code></pre>
 <p>Tibbles are designed so that you don’t accidentally overwhelm your console when you print large data frames. But sometimes you need more output than the default display. There are a few options that can help.</p>
 <p>First you can explicitly <code>print()</code> the data frame and control the number of rows (n) and the width of the display. <code>width = Inf</code> will display all columns:</p>
@@ -412,17 +416,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-5"><a href="tibbles.html#cb14-5"></a></span>
 <span id="cb14-6"><a href="tibbles.html#cb14-6"></a><span class="co"># extract by name</span></span>
 <span id="cb14-7"><a href="tibbles.html#cb14-7"></a>df<span class="op">$</span>x</span></code></pre></div>
-<pre><code>## [1] 0.04868728 0.32057645 0.46425596 0.85622070 0.93252417</code></pre>
+<pre><code>## [1] 0.3809941 0.5893957 0.1844371 0.3240162 0.7742614</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tibbles.html#cb16-1"></a>df[[<span class="st">&#39;x&#39;</span>]]</span></code></pre></div>
-<pre><code>## [1] 0.04868728 0.32057645 0.46425596 0.85622070 0.93252417</code></pre>
+<pre><code>## [1] 0.3809941 0.5893957 0.1844371 0.3240162 0.7742614</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="tibbles.html#cb18-1"></a><span class="co"># extract by position</span></span>
 <span id="cb18-2"><a href="tibbles.html#cb18-2"></a>df[[<span class="dv">1</span>]]</span></code></pre></div>
-<pre><code>## [1] 0.04868728 0.32057645 0.46425596 0.85622070 0.93252417</code></pre>
+<pre><code>## [1] 0.3809941 0.5893957 0.1844371 0.3240162 0.7742614</code></pre>
 <p>To use these in a pipe, you’ll need to use the special placeholder <code>.</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="tibbles.html#cb20-1"></a>df <span class="op">%&gt;%</span><span class="st"> </span>.<span class="op">$</span>x</span></code></pre></div>
-<pre><code>## [1] 0.04868728 0.32057645 0.46425596 0.85622070 0.93252417</code></pre>
+<pre><code>## [1] 0.3809941 0.5893957 0.1844371 0.3240162 0.7742614</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="tibbles.html#cb22-1"></a>df <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="st">&#39;x&#39;</span>]]</span></code></pre></div>
-<pre><code>## [1] 0.04868728 0.32057645 0.46425596 0.85622070 0.93252417</code></pre>
+<pre><code>## [1] 0.3809941 0.5893957 0.1844371 0.3240162 0.7742614</code></pre>
 <p>Compared to a <code>data.frame</code>, tibbles are more strict: they never do partial matching, and they will generate a warning if the column you are trying to access does not exist.</p>
 </div>
 </div>
@@ -514,18 +518,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-3"><a href="tibbles.html#cb53-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">3</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">2</span><span class="st">`</span> <span class="op">/</span><span class="st"> `</span><span class="dt">1</span><span class="st">`</span>)</span>
 <span id="cb53-4"><a href="tibbles.html#cb53-4"></a>annoying</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 3
-##      `1`    `2`   `3`
-##    &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;
-##  1     1  0.835 0.835
-##  2     2  5.99  3.00 
-##  3     3  6.75  2.25 
-##  4     4  7.37  1.84 
-##  5     5  9.96  1.99 
-##  6     6 11.3   1.88 
-##  7     7 14.8   2.11 
-##  8     8 16.0   2.00 
-##  9     9 19.1   2.12 
-## 10    10 20.9   2.09</code></pre>
+##      `1`   `2`   `3`
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1  2.58  2.58
+##  2     2  4.94  2.47
+##  3     3  5.80  1.93
+##  4     4  6.53  1.63
+##  5     5  9.30  1.86
+##  6     6 11.7   1.95
+##  7     7 14.8   2.11
+##  8     8 15.1   1.89
+##  9     9 19.2   2.14
+## 10    10 20.2   2.02</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="tibbles.html#cb55-1"></a><span class="co"># 4. Renaming the columns to one, two, three</span></span>
 <span id="cb55-2"><a href="tibbles.html#cb55-2"></a>annoying &lt;-<span class="st"> </span>annoying <span class="op">%&gt;%</span></span>
 <span id="cb55-3"><a href="tibbles.html#cb55-3"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">one=</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>,</span>
@@ -533,18 +537,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb55-5"><a href="tibbles.html#cb55-5"></a>         <span class="dt">three=</span><span class="st">`</span><span class="dt">3</span><span class="st">`</span>)</span>
 <span id="cb55-6"><a href="tibbles.html#cb55-6"></a>annoying</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 3
-##      one    two three
-##    &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;
-##  1     1  0.835 0.835
-##  2     2  5.99  3.00 
-##  3     3  6.75  2.25 
-##  4     4  7.37  1.84 
-##  5     5  9.96  1.99 
-##  6     6 11.3   1.88 
-##  7     7 14.8   2.11 
-##  8     8 16.0   2.00 
-##  9     9 19.1   2.12 
-## 10    10 20.9   2.09</code></pre>
+##      one   two three
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1  2.58  2.58
+##  2     2  4.94  2.47
+##  3     3  5.80  1.93
+##  4     4  6.53  1.63
+##  5     5  9.30  1.86
+##  6     6 11.7   1.95
+##  7     7 14.8   2.11
+##  8     8 15.1   1.89
+##  9     9 19.2   2.14
+## 10    10 20.2   2.02</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>What does <code>tibble::enframe()</code> do? When might you use it?</li>
 </ol>
@@ -567,14 +571,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What option controls how many additional column names are printed at the footer of a tibble?</li>
 </ol>
 
-<div id="refs" class="references">
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
-</div>
-<div>
-<p>———. 2021. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -582,8 +578,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="chapter-9-introduction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="introduction-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-import.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
