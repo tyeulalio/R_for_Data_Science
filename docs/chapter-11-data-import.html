@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Working Through R for Data Science</title>
+  <title>Chapter 11 Chapter 11: Data Import | Working Through R for Data Science</title>
   <meta name="description" content="This book goes through the chapters and exercises of the R for Data Science Book" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Working Through R for Data Science" />
+  <meta property="og:title" content="Chapter 11 Chapter 11: Data Import | Working Through R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Working Through R for Data Science" />
+  <meta name="twitter:title" content="Chapter 11 Chapter 11: Data Import | Working Through R for Data Science" />
   
   <meta name="twitter:description" content="This book goes through the chapters and exercises of the R for Data Science Book" />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Tiffany Eulalio" />
 
 
-<meta name="date" content="2021-08-10" />
+<meta name="date" content="2021-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="tibbles.html"/>
 
-<link rel="next" href="ch-1-and-2.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="chapter-11-data-import.html"><a href="chapter-11-data-import.html"><i class="fa fa-check"></i><b>11</b> Chapter 11: Data Import</a><ul>
 <li class="chapter" data-level="11.1" data-path="chapter-11-data-import.html"><a href="chapter-11-data-import.html#skip-section-4"><i class="fa fa-check"></i><b>11.1</b> Skip section</a></li>
-<li class="chapter" data-level="11.2" data-path="chapter-11-data-import.html"><a href="chapter-11-data-import.html#getting-started"><i class="fa fa-check"></i><b>11.2</b> 11.2 Getting Started</a></li>
+<li class="chapter" data-level="11.2" data-path="chapter-11-data-import.html"><a href="chapter-11-data-import.html#getting-started"><i class="fa fa-check"></i><b>11.2</b> Getting Started</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -261,24 +261,90 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Working Through R for Data Science</h1>
-<p class="author"><em>Tiffany Eulalio</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>2021-08-10</em></p>
+<div id="chapter-11-data-import" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Chapter 11: Data Import</h1>
+<div id="skip-section-4" class="section level2">
+<h2><span class="header-section-number">11.1</span> Skip section</h2>
 </div>
-<div id="overview" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Overview</h1>
-<p>This work comes from following along with the <strong>R for Data Science</strong> (R4DS) book. The book is freely available online at <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></p>
-<p>This was made using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2021</a>)</span>, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span>.</p>
+<div id="getting-started" class="section level2">
+<h2><span class="header-section-number">11.2</span> Getting Started</h2>
+<p>Here we’ll learn how to load flat files in R with the <code>readr</code> package, which is part of the core tidyverse.</p>
+<p>Most of readr’s functions are concerned with turning flat files into data frames:</p>
+<ul>
+<li><code>read_csv()</code> reads comma delimited files</li>
+<li><code>read_csv2()</code> reads semicolon separated files</li>
+<li><code>read_tsv()</code> reads tab delimited files</li>
+<li><code>read_delim()</code> reads in files with any delimiter</li>
+<li><code>read_fwf()</code> reads fixed width files. You can specify fields either by their widths with <code>fwf_widths()</code> or their position with <code>fwf_positions()</code>. <code>read_table()</code> reads a common variation of fixed width files where columns are separated by white space.</li>
+<li><code>read_log()</code> reads Apache style log files.</li>
+</ul>
+<p>The first argument to <code>read_csv()</code> is the path to the file to read.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chapter-11-data-import.html#cb2-1"></a><span class="co"># heights &lt;- read_csv(&quot;data/heights.csv&quot;)</span></span></code></pre></div>
+<p>You can also supply an inline csv file. This is useful for experimenting with readr and for creating reproducible examples to share with others:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chapter-11-data-import.html#cb3-1"></a><span class="kw">read_csv</span>(<span class="st">&quot;a,b,c</span></span>
+<span id="cb3-2"><a href="chapter-11-data-import.html#cb3-2"></a><span class="st">         1,2,3,</span></span>
+<span id="cb3-3"><a href="chapter-11-data-import.html#cb3-3"></a><span class="st">         4,5,6&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: 1 parsing failure.
+## row col  expected    actual         file
+##   1  -- 3 columns 4 columns literal data</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5     6</code></pre>
+<p>In both cases, <code>read_csv()</code> uses the first line of the data for column names, which is a very common convention. There are two cases where you might want to tweak this behavior:</p>
+<ol style="list-style-type: decimal">
+<li>Sometimes there are a few lines of metadata at the top of the file. You can use <code>skip = n</code> to skip the first <code>n</code> lines; or use <code>comment = "#"</code> to drop all lines that start with (e.g.) <code>#</code>.</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chapter-11-data-import.html#cb6-1"></a><span class="kw">read_csv</span>(<span class="st">&quot;The first line of metadata</span></span>
+<span id="cb6-2"><a href="chapter-11-data-import.html#cb6-2"></a><span class="st">         The second line of metadata</span></span>
+<span id="cb6-3"><a href="chapter-11-data-import.html#cb6-3"></a><span class="st">         x,y,z</span></span>
+<span id="cb6-4"><a href="chapter-11-data-import.html#cb6-4"></a><span class="st">         1,2,3&quot;</span>,</span>
+<span id="cb6-5"><a href="chapter-11-data-import.html#cb6-5"></a>         <span class="dt">skip=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chapter-11-data-import.html#cb8-1"></a><span class="kw">read_csv</span>(<span class="st">&quot;# a comment to skip,</span></span>
+<span id="cb8-2"><a href="chapter-11-data-import.html#cb8-2"></a><span class="st">         x,y,z</span></span>
+<span id="cb8-3"><a href="chapter-11-data-import.html#cb8-3"></a><span class="st">         1,2,3&quot;</span>,</span>
+<span id="cb8-4"><a href="chapter-11-data-import.html#cb8-4"></a>         <span class="dt">comment =</span> <span class="st">&#39;#&#39;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>The data might not have column names. You can use <code>col_names = FALSE</code> to tell <code>read_csv()</code> not to treat the first row as headings, and instead label them sequentially from <code>X1</code> to <code>Xn</code>:</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chapter-11-data-import.html#cb10-1"></a><span class="kw">read_csv</span>(<span class="st">&quot;1,2,3</span><span class="ch">\n</span><span class="st">4,5,6&quot;</span>, <span class="dt">col_names=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##      X1    X2    X3
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5     6</code></pre>
+<p>Alternatively, you can pass <code>col_names</code> a character vector which will be used as the column names:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chapter-11-data-import.html#cb12-1"></a><span class="kw">read_csv</span>(<span class="st">&quot;1,2,3</span><span class="ch">\n</span><span class="st">4,5,6&quot;</span>, <span class="dt">col_names=</span><span class="kw">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>, <span class="st">&#39;z&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5     6</code></pre>
+<p>Another option that commonly needs tweaking is <code>na</code>: this specifies the value (or values) that are used to represent missing values in your file:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="chapter-11-data-import.html#cb14-1"></a><span class="kw">read_csv</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2,.&quot;</span>, <span class="dt">na=</span><span class="st">&#39;.&#39;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##       a     b c    
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+## 1     1     2 NA</code></pre>
+<p>This is all you need to know to read ~75% of CSV files that you’ll encounter in practice. You can easily adapt what you’ve learned to read tab separated files with <code>read_tsv()</code> and fixed width files with <code>read_fwf()</code>.</p>
 
-</div>
-<h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-xie2015">
+<div>
 <p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
 </div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2021. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+<div>
+<p>———. 2021. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -286,8 +352,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="tibbles.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="ch-1-and-2.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
